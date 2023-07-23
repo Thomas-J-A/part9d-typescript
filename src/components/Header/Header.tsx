@@ -1,7 +1,7 @@
 import { HeaderProps } from '../../types';
 
 const Header = ({ courseName }: HeaderProps): JSX.Element => {
-  return <p>{courseName}</p>;
+  return <h1>{courseName}</h1>;
 };
 
 export default Header;

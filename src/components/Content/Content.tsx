@@ -1,12 +1,14 @@
-import { CourseParts } from '../../types';
+import { ContentProps } from '../../types';
 
-const Content = ({ courseParts }: CourseParts): JSX.Element => {
+import Part from '../Part/Part';
+
+const Content = ({ courseParts }: ContentProps): JSX.Element => {
   const coursePartsList = (
-    <>
+    <div>
       {courseParts.map((x, i) => (
-        <p key={i}>{`${x.name} ${x.exerciseCount}`}</p>
+        <Part key={i} part={x} />
       ))}
-    </>
+    </div>
   );
 
   return coursePartsList;
