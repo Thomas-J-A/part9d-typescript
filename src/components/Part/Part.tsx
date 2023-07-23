@@ -9,7 +9,7 @@ const Part = ({ part }: PartProps): JSX.Element | null => {
         <div>
           <b>{`${part.name} | ${part.exerciseCount}`}</b>
           <p>
-            <i>{`${part.description}`}</i>
+            <i>{part.description}</i>
           </p>
         </div>
       );
@@ -25,7 +25,7 @@ const Part = ({ part }: PartProps): JSX.Element | null => {
         <div>
           <b>{`${part.name} | ${part.exerciseCount}`}</b>
           <p>
-            <i>{`${part.description}`}</i>
+            <i>{part.description}</i>
           </p>
           <p>
             Background Material: <a href="#">{`${part.backgroundMaterial}`}</a>
@@ -37,7 +37,7 @@ const Part = ({ part }: PartProps): JSX.Element | null => {
         <div>
           <b>{`${part.name} | ${part.exerciseCount}`}</b>
           <p>
-            <i>{`${part.description}`}</i>
+            <i>{part.description}</i>
           </p>
           <p>{`Required skills: ${part.requirements.join(', ')}`}</p>
         </div>
