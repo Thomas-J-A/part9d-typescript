@@ -24,7 +24,7 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      <h1>Diary Entries</h1>
+      <h1>Flight Diary</h1>
       <Entries entries={entries} />
     </div>
   );
