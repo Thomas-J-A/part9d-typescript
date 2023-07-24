@@ -4,15 +4,32 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  parserOptions: {
+    ecmaVersion: 11,
+    sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
+  plugins: ['react-refresh', '@typescript-eslint'],
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
+  },
+
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    'react/react-in-jsx-scope': 0,
   },
-}
+};
