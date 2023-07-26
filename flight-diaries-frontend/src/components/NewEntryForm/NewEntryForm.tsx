@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios, { isAxiosError } from 'axios';
-import { NonSensitiveDiaryEntry } from '../../types';
+import { NonSensitiveDiaryEntry, Visibility, Weather } from '../../types';
 import Error from '../Error/Error';
 
 export interface NewEntryFormProps {
@@ -9,8 +9,8 @@ export interface NewEntryFormProps {
 
 const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
   const [date, setDate] = useState('');
-  const [visibility, setVisibility] = useState('');
-  const [weather, setWeather] = useState('');
+  const [visibility, setVisibility] = useState('great');
+  const [weather, setWeather] = useState('sunny');
   const [comment, setComment] = useState('');
   const [errMsg, setErrMsg] = useState<string | null>(null);
 
@@ -38,8 +38,8 @@ const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
 
       // Reset input fields
       setDate('');
-      setVisibility('');
-      setWeather('');
+      setVisibility('great');
+      setWeather('sunny');
       setComment('');
     } catch (e) {
       if (isAxiosError(e)) {
@@ -52,6 +52,36 @@ const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
     }
   };
 
+  const visibilityRadioInputs = Object.values(Visibility)
+    .map((v) => v.toString())
+    .map((v) => (
+      <label key={v}>
+        <input
+          type="radio"
+          name="visibility"
+          value={v}
+          onChange={(e) => setVisibility(e.target.value)}
+          checked={visibility === v}
+        />
+        {v}
+      </label>
+    ));
+
+  const weatherRadioInputs = Object.values(Weather)
+    .map((v) => v.toString())
+    .map((v) => (
+      <label key={v}>
+        <input
+          type="radio"
+          name="weather"
+          value={v}
+          onChange={(e) => setWeather(e.target.value)}
+          checked={weather === v}
+        />
+        {v}
+      </label>
+    ));
+
   return (
     <div>
       <h2>Add New Entry</h2>
@@ -61,31 +91,19 @@ const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
           <label>
             Date:
             <input
-              type="text"
+              type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
           </label>
         </div>
         <div>
-          <label>
-            Visibility:
-            <input
-              type="text"
-              value={visibility}
-              onChange={(e) => setVisibility(e.target.value)}
-            />
-          </label>
+          Visibility
+          {visibilityRadioInputs}
         </div>
         <div>
-          <label>
-            Weather:
-            <input
-              type="text"
-              value={weather}
-              onChange={(e) => setWeather(e.target.value)}
-            />
-          </label>
+          Weather
+          {weatherRadioInputs}
         </div>
         <div>
           <label>
