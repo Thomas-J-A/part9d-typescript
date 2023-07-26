@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
-
 import { NonSensitiveDiaryEntry } from './types';
-
 import Entries from './components/Entries/Entries';
+import NewEntryForm from './components/NewEntryForm/NewEntryForm';
 
-const App = (): JSX.Element => {
-  // const [newEntry, setNewEntry] = useState('');
+const App = () => {
   const [entries, setEntries] = useState<NonSensitiveDiaryEntry[]>([]);
 
   useEffect(() => {
@@ -25,6 +22,7 @@ const App = (): JSX.Element => {
   return (
     <div>
       <h1>Flight Diary</h1>
+      <NewEntryForm setEntries={setEntries} />
       <Entries entries={entries} />
     </div>
   );

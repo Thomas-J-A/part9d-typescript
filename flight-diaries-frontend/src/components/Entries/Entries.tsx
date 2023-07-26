@@ -1,6 +1,9 @@
 import Entry from './Entry/Entry';
+import { NonSensitiveDiaryEntry } from '../../types';
 
-import { EntriesProps } from '../../types';
+interface EntriesProps {
+  entries: NonSensitiveDiaryEntry[];
+}
 
 const Entries = ({ entries }: EntriesProps): JSX.Element => {
   if (!entries) return <p>There are no entries.</p>;

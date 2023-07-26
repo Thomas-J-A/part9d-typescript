@@ -1,6 +1,10 @@
-import { EntryProps } from '../../../types';
+import { NonSensitiveDiaryEntry } from '../../../types';
 
-const Entry = ({ entry }: EntryProps): JSX.Element => {
+interface EntryProps {
+  entry: NonSensitiveDiaryEntry;
+}
+
+const Entry = ({ entry }: EntryProps) => {
   return (
     <li key={entry.id}>
       <b>{entry.date}</b>
