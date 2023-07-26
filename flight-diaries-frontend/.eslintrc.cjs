@@ -30,6 +30,7 @@ module.exports = {
     ],
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
+    '@typescript-eslint/no-misused-promises': [2, { checksVoidReturn: false }],
     'react/react-in-jsx-scope': 0,
   },
 };

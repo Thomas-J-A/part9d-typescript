@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import axios from 'axios';
-import { NewDiaryEntry, NonSensitiveDiaryEntry } from '../../types';
+import axios, { isAxiosError } from 'axios';
+import { NonSensitiveDiaryEntry } from '../../types';
+import Error from '../Error/Error';
 
 export interface NewEntryFormProps {
   setEntries: React.Dispatch<React.SetStateAction<NonSensitiveDiaryEntry[]>>;
@@ -11,6 +12,7 @@ const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
   const [visibility, setVisibility] = useState('');
   const [weather, setWeather] = useState('');
   const [comment, setComment] = useState('');
+  const [errMsg, setErrMsg] = useState<string | null>(null);
 
   const addNewEntry = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -24,26 +26,37 @@ const NewEntryForm = ({ setEntries }: NewEntryFormProps) => {
       comment,
     };
 
-    // Send data to backend
-    const res = await axios.post<NonSensitiveDiaryEntry>(
-      'http://localhost:3000/api/diaries',
-      newEntry,
-    );
+    try {
+      // Send data to backend
+      const res = await axios.post<NonSensitiveDiaryEntry>(
+        'http://localhost:3000/api/diaries',
+        newEntry,
+      );
 
-    // Update local state
-    setEntries((prev) => [...prev, res.data]);
+      // Update local state
+      setEntries((prev) => [...prev, res.data]);
 
-    // Reset input fields
-    setDate('');
-    setVisibility('');
-    setWeather('');
-    setComment('');
+      // Reset input fields
+      setDate('');
+      setVisibility('');
+      setWeather('');
+      setComment('');
+    } catch (e) {
+      if (isAxiosError(e)) {
+        setErrMsg(e.response?.data as string);
+        setTimeout(() => setErrMsg(null), 5000);
+      } else {
+        setErrMsg('Unknown error occurred');
+        setTimeout(() => setErrMsg(null), 5000);
+      }
+    }
   };
 
   return (
     <div>
       <h2>Add New Entry</h2>
       <form onSubmit={addNewEntry}>
+        {errMsg && <Error msg={errMsg} />}
         <div>
           <label>
             Date:
